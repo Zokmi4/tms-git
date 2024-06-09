@@ -1,0 +1,23 @@
+server {
+    listen 80;
+    listen [::]:80;
+  
+   server_name tms.by www.tms.by;
+
+    root /var/www/tms.by/html;
+    index index.html index.htm index.php;
+
+    charset utf-8;
+
+    access_log /var/log/nginx/tms.by.access.log;
+    error_log /var/log/nginx/tms.by.error.log;
+location / {
+  proxy_pass http://127.0.0.2:8080;
+  proxy_set_header Host $host;
+  proxy_set_header X-Real-IP $remote_addr;
+  proxy_set_header X-Forwerded-For
+$proxy_add_x_forwarded_for;
+  }
+
+}
+ 
