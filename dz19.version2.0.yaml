@@ -1,0 +1,60 @@
+- name: Install and configure PostgreSQL and Nginx
+  hosts: all
+  become: yes
+  vars:
+    nginx_conf: |
+      server {
+          listen 80;
+          server_name example.com;
+          location / {
+              proxy_pass http://localhost:8080;
+          }
+      }
+  tasks:
+    - name: Install PostgreSQL
+      apt:
+        name: postgresql
+        state: present
+      notify: restart postgresql
+
+    - name: Ensure PostgreSQL is running and enabled on boot
+      systemd:
+        name: postgresql
+        enabled: yes
+        state: started
+
+    - name: Install Nginx
+      apt:
+        name: nginx
+        state: present
+      notify: restart nginx
+
+    - name: Create custom Nginx configuration file
+      copy:
+        dest: /etc/nginx/sites-available/custom
+        content: "{{ nginx_conf }}"
+      notify: reload nginx
+
+    - name: Ensure custom Nginx configuration is enabled
+      file:
+        src: /etc/nginx/sites-available/custom
+        dest: /etc/nginx/sites-enabled/custom
+        state: link
+        force: yes
+      notify: reload nginx
+
+  handlers:
+    - name: restart postgresql
+      systemd:
+        name: postgresql
+        state: restarted
+
+    - name: restart nginx
+      systemd:
+        name: nginx
+        state: restarted
+
+    - name: reload nginx
+      systemd:
+        name: nginx
+        state: reloaded
