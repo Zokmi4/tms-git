@@ -1,0 +1,35 @@
+- name: Sozdat user and prava
+  block:
+    - name: Create or delete users
+      ansible.builtin.user:
+        name: "{{ item.username }}"
+        password: "{{ item.password | default }}"
+        groups: "{{ item.groups | default }}"
+        state: "{{ item.state | default('present') }}"
+        create_home: yes
+      loop: "{{ users_list }}"
+      loop_control:
+        label: "{{ item.username }}"
+
+    - name: ssh 
+      file:
+        path: /home/{{ item.username }}/.ssh
+        state: directory
+        mode: 0700
+        owner: "{{ item.username }}"
+        group: "{{ item.username }}"
+      when: item.ssh_key is defined and item.state == 'present'
+      loop: "{{ users_list }}"
+      loop_control:
+        label: "{{ item.username }}"
+
+    - name: Add authorized key
+      authorized_key:
+        user: "{{ item.username }}"
+        key: "{{ item.ssh_key }}"
+        state: present
+      when: item.ssh_key is defined and item.state == 'present'
+      loop: "{{ users_list }}"
+      loop_control:
+        label: "{{ item.username }}"
+  when: users_list | length > 0

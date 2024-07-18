@@ -1,0 +1,60 @@
+# ansible-playbook install.yaml  -u vagrant --private-key */.vagrant.d/insecure_private_keys/vagrant.key.rsa -i Inventory
+---
+#- name: Install nginx
+ # hosts: linux
+  #vars:
+    #navigation:
+     # - href: "/abc"
+     #   caption: "abc"
+    #abc: "dsfsdfdsfasfdsfs"
+  #tasks:
+   # - name: Install nginx
+    #  ansible.builtin.apt:
+     #   name:
+      #    - emacs
+       #   - nginx
+        #state: present
+        #update_cache: true
+
+#    - name: Enable nginx
+ #      name: nginx
+  #      state: started
+   #     enabled: true
+#
+ #   - name: Add html page
+  #    ansible.builtin.template:
+   #     src: "index.html.j2"
+    #    dest: "/var/www/html/index.html"
+     #   owner: "www-data"
+      #  mode: "0644"
+
+#    - name: Nginx configuration
+ #     ansible.builtin.template:
+  #      src: "nginx.conf"
+   #     dest: "/etc/nginx/nginx.conf"
+    #    # validate:
+    #    mode: "0644"
+    #  notify:
+     #   - Reload nginx
+
+
+#    - name: Check nginx
+ #     ansible.builtin.uri:
+  #      url: "http://localhost"
+
+    # - name: Debug
+    #   ansible.builtin.debug: "sdfdsfdsf"
+
+#  handlers:
+ #   - name: Reload nginx
+  #    ansible.builtin.service:
+   #     name: nginx
+    #    state: reloaded
+
+    - name: Manage users
+  hosts: linux
+  become: true
+  tasks:
+    - name: Manage_users
+      ansible.builtin.include_role:
+        name: manage_users
