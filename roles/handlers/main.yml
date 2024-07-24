@@ -1,0 +1,5 @@
+- name: Restart Nagios
+  systemd:
+    name: nagios3
+    state: restarted
+  become: yes

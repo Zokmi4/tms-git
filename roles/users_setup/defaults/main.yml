@@ -1,0 +1,7 @@
+users:
+  - name: alice
+    groups: sudo
+    password: "{{ 'password' | password_hash('sha512') }}"
+  - name: bob
+    groups: users
+    password: "{{ 'password' | password_hash('sha512') }}"

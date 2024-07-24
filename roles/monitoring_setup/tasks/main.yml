@@ -1,0 +1,16 @@
+ name: Install Nagios
+  apt:
+    name: nagios3
+    state: present
+  become: yes
+  when: monitoring_tool == "nagios"
+
+- name: Configure Nagios admin email
+  lineinfile:
+    path: /etc/nagios3/conf.d/contacts_nagios2.cfg
+    regexp: '^email'
+    line: 'email {{ nagios_admin_email }}'
+  notify:
+    - Restart Nagios
+  become: yes
+  when: monitoring_tool == "nagios"

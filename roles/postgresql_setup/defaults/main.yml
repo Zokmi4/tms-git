@@ -1,0 +1,5 @@
+postgresql_port: 5432
+postgresql_root_password: mysuperpassword
+postgresql_db_name: mydatabase
+postgresql_db_user: myuser
+postgresql_db_user_password: userpass

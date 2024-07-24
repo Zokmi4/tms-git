@@ -1,0 +1,45 @@
+---
+- name: Setup and configure web server
+  hosts: webservers
+  become: yes
+  roles:
+    - role: nginx_setup
+      vars:
+        nginx_listen_port: 8080
+        nginx_server_name: myapp.local
+        nginx_root_path: /var/www/myapp
+
+- name: Setup and configure database server
+  hosts: dbservers
+  become: yes
+  roles:
+    - role: postgresql_setup
+      vars:
+        postgresql_port: 5432
+        postgresql_root_password: supersecretpassword
+        postgresql_db_name: mydatabase
+        postgresql_db_user: myuser
+        postgresql_db_user_password: userpassword
+
+- name: Setup server monitoring
+  hosts: webservers
+  become: yes
+  roles:
+    - role: monitoring_setup
+      vars:
+        monitoring_tool: nagios
+        nagios_admin_email: admin@example.com
+
+- name: Setup users and groups
+  hosts: all
+  become: yes
+  roles:
+    - role: users_setup
+      vars:
+        users:
+          - name: alice
+            groups: sudo
+            password: "{{ 'password' | password_hash('sha512') }}"
+          - name: bob
+            groups: users
+            password: "{{ 'password' | password_hash('sha512') }}"
