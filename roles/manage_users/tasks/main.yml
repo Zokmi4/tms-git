@@ -1,10 +1,10 @@
-- name: Sozdat user and prava
+- name: Create users
   block:
     - name: Create or delete users
       ansible.builtin.user:
         name: "{{ item.username }}"
-        password: "{{ item.password | default }}"
-        groups: "{{ item.groups | default }}"
+        password: "{{ item.password | default('') }}"
+    groups: "{{ item.groups | default('') }}"
         state: "{{ item.state | default('present') }}"
         create_home: yes
       loop: "{{ users_list }}"
