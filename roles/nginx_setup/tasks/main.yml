@@ -1,0 +1,17 @@
+- name: Install Nginx
+  ansible.builtin.apt:
+    name: nginx
+    state: present
+
+- name: Start and enable Nginx service
+  ansible.builtin.systemd:
+    name: nginx
+    state: started
+    enabled: yes
+
+- name: Copy Nginx configuration file
+  ansible.builtin.template:
+    src: nginx.setup.j2
+    dest: /etc/nginx/sites-available/default
+  notify:
+    - Restart Nginx

@@ -1,0 +1,2 @@
+monitoring_tool: nagios
+nagios_admin_email: admin@example.com

@@ -1,0 +1,3 @@
+nginx_listen_port: 80
+nginx_server_name: localhost
+nginx_root_path: /var/www/html
