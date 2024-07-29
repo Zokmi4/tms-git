@@ -1,0 +1,9 @@
+linux:
+ hosts: 
+   192.168.0.112: 
+   192.168.0.113:
+   
+  #/Users/zokmi4/.vagrant.d/insecure_private_keys/vagrant.key.rsa
+  #vagrant1 
+  #/Users/zokmi4/.vagrant.d/insecure_private_keys/vagrant.key.ed25519  
+  
