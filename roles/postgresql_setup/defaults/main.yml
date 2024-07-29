@@ -1,4 +1,4 @@
-postgresql_port: 5432
+postgresql_setup: 5432
 postgresql_root_password: mysuperpassword
 postgresql_db_name: mydatabase
 postgresql_db_user: myuser

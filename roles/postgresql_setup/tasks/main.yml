@@ -2,32 +2,27 @@
   apt:
     name: postgresql
     state: present
-  become: yes
 
 - name: Start and enable PostgreSQL service
   systemd:
     name: postgresql
     state: started
     enabled: yes
-  become: yes
 
 - name: Set PostgreSQL root password
   shell: |
     sudo -u postgres psql -c "ALTER USER postgres PASSWORD '{{ postgresql_root_password }}';"
-  become: yes
 
 - name: Create a new PostgreSQL database
   postgresql_db:
     name: "{{ postgresql_db_name }}"
     state: present
-  become: yes
 
 - name: Create a new PostgreSQL user
   postgresql_user:
     name: "{{ postgresql_db_user }}"
     password: "{{ postgresql_db_user_password }}"
     state: present
-  become: yes
 
 - name: Grant all privileges on database to user
   postgresql_privs:
@@ -35,4 +30,3 @@
     role: "{{ postgresql_db_user }}"
     privs: ALL
     state: present
-  become: yes

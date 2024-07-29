@@ -1,16 +1,14 @@
  name: Create users
-  user:
+ user:
     name: "{{ item.name }}"
     groups: "{{ item.groups }}"
     password: "{{ item.password }}"
   loop: "{{ users }}"
-  become: yes
 
 - name: Setup SSH keys for users
-  copy:
-    src: "files/{{ item.name }}/authorized_keys"
+ copy:
+    src: "{{ item.name }}/authorized_keys"
     dest: "/home/{{ item.name }}/.ssh/authorized_keys"
     mode: 0600
   loop: "{{ users }}"
-  become: yes
   ignore_errors: yes
