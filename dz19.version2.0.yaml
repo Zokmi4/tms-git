@@ -40,7 +40,6 @@
         src: /etc/nginx/sites-available/custom
         dest: /etc/nginx/sites-enabled/custom
         state: link
-        force: yes
       notify: reload nginx
 
   handlers:
