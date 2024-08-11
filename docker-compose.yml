@@ -1,26 +1,8 @@
-# Шаг 1: Указываем версию Docker Compose
-version: '3'
+# Перейдите в папку с проектом
+cd ./
 
-services:
-  # Шаг 2: Определяем сервис для базы данных PostgreSQL
-  db:
-    image: postgres:latest
-    environment:
-      POSTGRES_USER: myuser
-      POSTGRES_PASSWORD: mypassword
-      POSTGRES_DB: mydatabase
-    volumes:
-      - db_data:/var/lib/postgresql/data
+# Постройте Docker образ
+docker build -t python_app .
 
-  # Шаг 3: Определяем сервис для веб-сервера на основе образа NGINX
-  web:
-    image: nginx:latest
-    ports:
-      - "80:80"
-    volumes:
-      - ./nginx.conf:/etc/nginx/nginx.conf
-    links:
-      - db
-
-volumes:
-  db_data:
+# Запустите контейнер
+docker run -it dz25.py

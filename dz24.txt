@@ -1,5 +1,0 @@
-В баше делаем сборку контейнера 
-docker build -t my-nginx-app .
-Запускаем контейнер 
-docker run -d -p 8080:8080 my-nginx-app
-
