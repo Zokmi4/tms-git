@@ -1,0 +1,11 @@
+phantom:
+  address: 192.168.0.53:8000
+  uris:
+    - /
+  load_profile:
+    load_type: rps
+    schedule: line(10,100, 1m)
+console:
+  enabled: true
+telegraf:
+  enabled: false
