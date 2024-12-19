@@ -1,0 +1,8 @@
+# Перейдите в папку с проектом
+cd ./
+
+# Постройте Docker образ
+docker build -t python_app .
+
+# Запустите контейнер
+docker run -it dz25.py
